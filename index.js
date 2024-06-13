@@ -1,11 +1,14 @@
+// подключение необходимых библиотек
 require("dotenv").config();
 const { Bot, InlineKeyboard, HttpError, GrammyError } = require("grammy");
 const bot = new Bot(process.env.TOKEN_BOT);
 
+// обработка команды старт
 bot.command("start", async (ctx) => {
   await ctx.reply(`Hello, ${ctx.chat.first_name}`);
 });
 
+// обработка всех сообщений кнопка с url сайта
 bot.on("message", async (ctx) => {
   const websiteButton = new InlineKeyboard();
   await ctx.reply("You can go to our website", {
@@ -16,7 +19,8 @@ bot.on("message", async (ctx) => {
   });
 });
 
-/*bot.catch((error) => {
+// обработка ошибок
+bot.catch((error) => {
   const ctx = error.ctx;
   console.error(ctx.update.update_id);
   const e = error.error;
@@ -27,6 +31,6 @@ bot.on("message", async (ctx) => {
   } else {
     console.error(`Unknown error ${e}`);
   }
-});*/
+});
 
 bot.start();
